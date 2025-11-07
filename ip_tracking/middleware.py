@@ -3,7 +3,7 @@ from ipgeolocation import IPGeolocationAPI
 from django.core.cache import cache
 from django.http import HttpResponseForbidden
 
-class RequestLogMiddleware:
+class RequestLogMiddleware: 
     """
     Middleware that logs each request's IP address, timestamp, and path.
     """
