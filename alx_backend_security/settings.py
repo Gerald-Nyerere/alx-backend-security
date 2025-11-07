@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'ip_tracking',
+    'ratelimit',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,6 @@ CACHES = {
         "LOCATION": "unique-ip-tracking-cache",
     }
 }
+
+RATELIMIT_VIEW = 'ip_tracking.views.ratelimit_error'  # custom handler
+RATELIMIT_ENABLE = True
