@@ -1,5 +1,5 @@
-from .models import RequestLog
-from datetime import datetime
+from .models import RequestLog, BlockedIP
+from django.http import HttpResponseForbidden
 
 class RequestLogMiddleware:
     """
@@ -12,6 +12,10 @@ class RequestLogMiddleware:
     def __call__(self, request):
         ip = self.get_client_ip(request)
         path = request.path
+
+        if BlockedIP.objects.filter(ip_address=ip).exists():
+            return HttpResponseForbidden("Access denied: Your IP has been blocked.")
+
 
         if not path.startswith('/admin'):
             RequestLog.objects.create(ip_address=ip, path=path)
